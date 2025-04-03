@@ -29,12 +29,12 @@ export default function Chat() {
       subtitle: "that my customers can call for support",
     },
     {
-      title: "How do I build a workflow that can connect",
-      subtitle: "to my CRM & perform lead generation?",
+      title: "How do I build a workflow that can summarize",
+      subtitle: "my emails and send me a daily digest?",
     },
     {
       title: "How do I build an open source Perplexity",
-      subtitle: "clone that also has my own data?",
+      subtitle: "clone with a search API?",
     },
   ];
 
