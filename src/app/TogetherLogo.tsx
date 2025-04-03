@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default function TogetherLogo(props: any) {
+export default function TogetherLogo(props: React.ComponentProps<"svg">) {
   return (
     <svg
       width={84}
