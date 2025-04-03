@@ -1,79 +1,103 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Together from "together-ai";
 import { ChatCompletionStream } from "together-ai/lib/ChatCompletionStream";
+import Markdown from "react-markdown";
 
 export default function Chat() {
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [status, setStatus] = useState<"idle" | "pending" | "done">("idle");
+  const [prompt, setPrompt] = useState("");
+  const [messages, setMessages] = useState<
+    Together.Chat.Completions.CompletionCreateParams.Message[]
+  >([]);
+  const [isPending, setIsPending] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    setStatus("pending");
+    setPrompt("");
+    setIsPending(true);
+    setMessages((messages) => [
+      ...messages,
+      {
+        role: "user",
+        content: prompt,
+      },
+    ]);
 
-    const res = await fetch("/api/answer", {
+    const res = await fetch("/api/chat", {
       method: "POST",
-      body: JSON.stringify({ question }),
+      body: JSON.stringify({
+        messages: [
+          ...messages,
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+      }),
     });
 
     if (!res.body) return;
 
     ChatCompletionStream.fromReadableStream(res.body)
-      .on("content", (delta) => setAnswer((text) => text + delta))
-      .on("end", () => setStatus("done"));
+      .on("content", (delta, content) => {
+        setMessages((messages) => {
+          const lastMessage = messages.at(-1);
+
+          if (lastMessage?.role !== "assistant") {
+            return [...messages, { role: "assistant", content }];
+          } else {
+            return [...messages.slice(0, -1), { ...lastMessage, content }];
+          }
+        });
+      })
+      .on("end", () => {
+        setIsPending(false);
+      });
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl grow flex-col px-4">
-      {status === "idle" ? (
-        <div className="flex grow flex-col justify-center">
-          <form onSubmit={handleSubmit} className="flex w-full gap-2">
+    <>
+      <div className="flex h-0 grow flex-col-reverse overflow-y-scroll">
+        <div className="space-y-4 py-8">
+          {messages.map((message, i) => (
+            <div key={i} className="mx-auto flex max-w-3xl">
+              {message.role === "user" ? (
+                <div className="ml-auto rounded-full bg-blue-500 px-4 py-2 text-white">
+                  {message.content}
+                </div>
+              ) : (
+                <div className="prose">
+                  <Markdown>{message.content}</Markdown>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-8 flex justify-center gap-2">
+        <form onSubmit={handleSubmit} className="flex w-full max-w-3xl">
+          <fieldset className="flex w-full gap-2">
             <input
-              placeholder="Ask me a question"
               autoFocus
-              name="prompt"
+              placeholder="I want to build a..."
               required
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
               className="block w-full rounded border border-gray-300 p-2 outline-black"
             />
             <button
-              className="rounded bg-black px-3 py-1 font-medium text-white outline-offset-[3px] outline-black"
+              className="rounded bg-black px-3 py-1 font-medium text-white outline-offset-[3px] outline-black disabled:opacity-50"
               type="submit"
+              disabled={isPending}
             >
               Submit
             </button>
-          </form>
-        </div>
-      ) : (
-        <>
-          <div className="mt-8 flex flex-col justify-end">
-            <div className="grid grid-cols-4">
-              <p className="col-span-3 text-xl">{question}</p>
-
-              <div className="text-right">
-                <button
-                  className="rounded bg-black px-3 py-2 font-medium text-white disabled:opacity-50"
-                  disabled={status === "pending"}
-                  onClick={() => {
-                    setQuestion("");
-                    setAnswer("");
-                    setStatus("idle");
-                  }}
-                >
-                  Reset
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="py-8">
-            <p className="whitespace-pre-wrap">{answer}</p>
-          </div>
-        </>
-      )}
-    </div>
+          </fieldset>
+        </form>
+      </div>
+    </>
   );
 }

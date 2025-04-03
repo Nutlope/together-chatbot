@@ -33,18 +33,7 @@ export default function RootLayout({
       >
         <header className="text-sm font-medium">
           <div className="mx-auto flex max-w-6xl gap-4 px-4 py-4">
-            <NavLink
-              className="text-gray-400 data-[active]:text-gray-900"
-              href="/"
-            >
-              Ask a question
-            </NavLink>
-            <NavLink
-              className="text-gray-400 data-[active]:text-gray-900"
-              href="/chat"
-            >
-              Chat
-            </NavLink>
+            <div>What do you want to build?</div>
 
             <div className="ml-auto">
               <a
@@ -58,27 +47,6 @@ export default function RootLayout({
         </header>
 
         <main className="flex grow flex-col">{children}</main>
-
-        <footer className="bg-gray-50 text-sm text-gray-500">
-          <div className="mx-auto max-w-6xl px-4 py-6">
-            Powered by{" "}
-            <Link
-              className="font-medium underline underline-offset-2"
-              target="_blank"
-              href="https://www.together.ai/"
-            >
-              Together AI
-            </Link>
-            . View the source on{" "}
-            <Link
-              href="https://github.com/samselikoff/together-nextjs-chat"
-              className="font-medium underline underline-offset-2"
-            >
-              GitHub
-            </Link>
-            .
-          </div>
-        </footer>
       </body>
     </html>
   );
