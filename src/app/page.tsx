@@ -145,7 +145,7 @@ export default function Chat() {
         </div>
       </div>
 
-      <div className="mx-auto mb-8 grid w-full max-w-3xl grid-cols-2 gap-4">
+      <div className="mx-auto mb-8 hidden w-full max-w-3xl grid-cols-2 gap-4 md:grid">
         {messages.length === 0 &&
           suggestions.map((suggestion, i) => (
             <motion.button
