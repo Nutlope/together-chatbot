@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import Together from "together-ai";
 import { ChatCompletionStream } from "together-ai/lib/ChatCompletionStream";
 import Markdown from "react-markdown";
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 export default function Chat() {
   const [prompt, setPrompt] = useState("");
@@ -14,20 +15,20 @@ export default function Chat() {
 
   const suggestions = [
     {
-      title: "What are the advantages",
-      subtitle: "of using Next.js?",
+      title: "How can I build an app that parses PDFs",
+      subtitle: "and can extract key things from them?",
     },
     {
-      title: "Write code to",
-      subtitle: "demonstrate dijkstra's algorithm",
+      title: "I want to build a voice agent",
+      subtitle: "that my customers can call for support",
     },
     {
-      title: "Help me write an essay",
-      subtitle: "about silicon valley",
+      title: "How do I build a workflow that can connect",
+      subtitle: "to my CRM & perform lead generation?",
     },
     {
-      title: "What is the weather",
-      subtitle: "in San Francisco?",
+      title: "How do I build an open source Perplexity",
+      subtitle: "clone that also has my own data?",
     },
   ];
 
@@ -97,22 +98,23 @@ export default function Chat() {
       </div>
 
       <div className="mx-auto mb-8 grid w-full max-w-3xl grid-cols-2 gap-4">
-        {suggestions.map((suggestion, i) => (
-          <button
-            key={i}
-            className="rounded-xl border p-4 text-left hover:bg-gray-50"
-            onClick={() =>
-              setPrompt(suggestion.title + " " + suggestion.subtitle)
-            }
-          >
-            <div className="font-medium">{suggestion.title}</div>
-            <div className="text-gray-600">{suggestion.subtitle}</div>
-          </button>
-        ))}
+        {messages.length === 0 &&
+          suggestions.map((suggestion, i) => (
+            <button
+              key={i}
+              className="rounded-xl border p-4 text-left hover:bg-gray-50"
+              onClick={() =>
+                setPrompt(suggestion.title + " " + suggestion.subtitle)
+              }
+            >
+              <div className="font-medium">{suggestion.title}</div>
+              <div className="text-gray-600">{suggestion.subtitle}</div>
+            </button>
+          ))}
       </div>
       <div className="mb-8 flex justify-center gap-2">
         <form onSubmit={handleSubmit} className="flex w-full max-w-3xl">
-          <fieldset className="flex w-full gap-2">
+          <fieldset className="relative flex w-full">
             <textarea
               rows={4}
               autoFocus
@@ -120,14 +122,14 @@ export default function Chat() {
               required
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              className="block w-full rounded border border-gray-300 p-2 outline-black"
+              className="block w-full rounded border border-gray-300 p-2 pr-12 outline-black"
             />
             <button
-              className="rounded bg-black px-3 py-1 font-medium text-white outline-offset-[3px] outline-black disabled:opacity-50"
               type="submit"
               disabled={isPending}
+              className="absolute bottom-2 right-2 rounded-full p-2 text-black hover:bg-gray-100 disabled:opacity-50"
             >
-              Submit
+              <PaperAirplaneIcon className="h-5 w-5" />
             </button>
           </fieldset>
         </form>

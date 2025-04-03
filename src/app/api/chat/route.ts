@@ -112,6 +112,10 @@ export async function POST(request: Request) {
   - Llama 3.2 11B Instruct (fast and cheap)
   - Qwen 2.5 VL 72B Instruct (best vision model but slower and more expensive)
 
+  ## Search API
+
+  We don't provide a search API but we do integrate with many search providers such as Exa (who can do searching and scraping) or Brave for search and Firecrawl for scraping.
+
   ## Speech to text
 
   We only offer one speech to text model: Cartesia.
