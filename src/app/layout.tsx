@@ -17,8 +17,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Together AI - Next Chat",
-  description: "Quickstart for Together AI + Next.js",
+  title: "Together AI Solutions",
+  description: "A Chatbot to answer your Together AI questions",
 };
 
 export default function RootLayout({
@@ -43,7 +43,7 @@ export default function RootLayout({
 
             <div className="ml-auto">
               <a
-                href="https://github.com/samselikoff/together-nextjs-chat"
+                href="https://github.com/nutlope/together-chatbot"
                 className="text-gray-500 hover:text-gray-900"
               >
                 <GitHubLogoIcon width="20" height="20" />

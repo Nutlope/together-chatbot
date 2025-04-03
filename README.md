@@ -2,11 +2,6 @@
 
 This demo app showcases how to use [Together AI's TypeScript SDK](https://github.com/togethercomputer/together-typescript) with Next.js.
 
-There are two routes:
-
-- Ask a question: [src/app/page.tsx](./src/app/page.tsx)
-- Chat: [src/app/chat/page.tsx](./src/app/chat/page.tsx)
-
 ## Running locally
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).

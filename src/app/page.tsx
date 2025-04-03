@@ -148,8 +148,15 @@ export default function Chat() {
       <div className="mx-auto mb-8 grid w-full max-w-3xl grid-cols-2 gap-4">
         {messages.length === 0 &&
           suggestions.map((suggestion, i) => (
-            <button
+            <motion.button
               key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: i * 0.1,
+                ease: "easeOut",
+              }}
               className="rounded-xl border p-4 text-left hover:bg-gray-50"
               onClick={() =>
                 setPrompt(suggestion.title + " " + suggestion.subtitle)
@@ -157,7 +164,7 @@ export default function Chat() {
             >
               <div className="font-medium">{suggestion.title}</div>
               <div className="text-gray-600">{suggestion.subtitle}</div>
-            </button>
+            </motion.button>
           ))}
       </div>
       <div className="mb-8 flex justify-center gap-2">
