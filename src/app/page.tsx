@@ -4,7 +4,13 @@ import { FormEvent, useState } from "react";
 import Together from "together-ai";
 import { ChatCompletionStream } from "together-ai/lib/ChatCompletionStream";
 import Markdown from "react-markdown";
-import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import {
+  PaperAirplaneIcon,
+  CommandLineIcon,
+  ChatBubbleBottomCenterTextIcon,
+} from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Chat() {
   const [prompt, setPrompt] = useState("");
@@ -79,7 +85,49 @@ export default function Chat() {
 
   return (
     <>
-      <div className="flex h-0 grow flex-col-reverse overflow-y-scroll">
+      <div className="flex h-0 grow flex-col overflow-y-scroll">
+        {messages.length === 0 && (
+          <motion.div
+            key="overview"
+            className="mx-auto max-w-3xl md:mt-20"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ delay: 0.5 }}
+          >
+            <div className="flex max-w-xl flex-col gap-8 rounded-xl p-6 text-center leading-relaxed">
+              <p className="flex flex-row items-center justify-center gap-4">
+                <CommandLineIcon className="h-8 w-8" />
+                <span>+</span>
+                <ChatBubbleBottomCenterTextIcon className="h-8 w-8" />
+              </p>
+              <p>
+                This is a chatbot by{" "}
+                <Link
+                  className="font-medium underline underline-offset-4"
+                  href="https://together.ai"
+                  target="_blank"
+                >
+                  Together AI
+                </Link>{" "}
+                that can guide you through how to solve problems with Together
+                AI, from general architecture and what APIs you should use down
+                to which LLM you should use for a specific use case.
+              </p>
+              <p>
+                You can learn more about the Together AI by visiting our{" "}
+                <Link
+                  className="font-medium underline underline-offset-4"
+                  href="https://docs.together.ai/"
+                  target="_blank"
+                >
+                  docs
+                </Link>
+                .
+              </p>
+            </div>
+          </motion.div>
+        )}
         <div className="space-y-4 py-8">
           {messages.map((message, i) => (
             <div key={i} className="mx-auto flex max-w-3xl">
@@ -122,7 +170,7 @@ export default function Chat() {
               required
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              className="block w-full rounded border border-gray-300 p-2 pr-12 outline-black"
+              className="block w-full rounded-xl border border-gray-300 bg-gray-100 p-2 pr-12 outline-black"
             />
             <button
               type="submit"
