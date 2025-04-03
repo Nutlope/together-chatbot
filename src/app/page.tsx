@@ -12,6 +12,25 @@ export default function Chat() {
   >([]);
   const [isPending, setIsPending] = useState(false);
 
+  const suggestions = [
+    {
+      title: "What are the advantages",
+      subtitle: "of using Next.js?",
+    },
+    {
+      title: "Write code to",
+      subtitle: "demonstrate dijkstra's algorithm",
+    },
+    {
+      title: "Help me write an essay",
+      subtitle: "about silicon valley",
+    },
+    {
+      title: "What is the weather",
+      subtitle: "in San Francisco?",
+    },
+  ];
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -77,10 +96,25 @@ export default function Chat() {
         </div>
       </div>
 
+      <div className="mx-auto mb-8 grid w-full max-w-3xl grid-cols-2 gap-4">
+        {suggestions.map((suggestion, i) => (
+          <button
+            key={i}
+            className="rounded-xl border p-4 text-left hover:bg-gray-50"
+            onClick={() =>
+              setPrompt(suggestion.title + " " + suggestion.subtitle)
+            }
+          >
+            <div className="font-medium">{suggestion.title}</div>
+            <div className="text-gray-600">{suggestion.subtitle}</div>
+          </button>
+        ))}
+      </div>
       <div className="mb-8 flex justify-center gap-2">
         <form onSubmit={handleSubmit} className="flex w-full max-w-3xl">
           <fieldset className="flex w-full gap-2">
-            <input
+            <textarea
+              rows={4}
               autoFocus
               placeholder="I want to build a..."
               required
