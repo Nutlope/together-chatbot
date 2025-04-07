@@ -132,7 +132,7 @@ export default function Chat() {
           {messages.map((message, i) => (
             <div key={i} className="mx-auto flex max-w-3xl">
               {message.role === "user" ? (
-                <div className="ml-auto rounded-full bg-blue-500 px-4 py-2 text-white">
+                <div className="ml-auto rounded-full bg-gray-800 px-4 py-2 text-white">
                   {message.content}
                 </div>
               ) : (

@@ -1,23 +1,15 @@
-# Together AI + Next.js
+# Next.js AI Chatbot template
 
-This demo app showcases how to use [Together AI's TypeScript SDK](https://github.com/togethercomputer/together-typescript) with Next.js.
+This is a template for an AI chatbot using Next.js + the Vercel AI SDK + Together AI in ~250 LOC.
 
-## Running locally
+## Tech stack
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+- Together.ai for the LLM
+- Vercel's AI SDK as the LLM framework
+- Next.js app router
 
-## Getting Started
+## Cloning & running
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Fork or clone the repo
+2. Create an account at [Together AI](https://togetherai.link) & save your Together API key in `.env` (use the `.example.env` for reference)
+3. Run `npm install` and `npm run dev` to install dependencies and run locally

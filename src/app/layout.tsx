@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
 import TogetherLogo from "./TogetherLogo";
 
 const geistSans = localFont({
@@ -33,13 +32,13 @@ export default function RootLayout({
       >
         <header className="text-sm font-medium">
           <div className="mx-auto flex max-w-6xl gap-4 px-4 py-4">
-            <Link
+            <a
               href="/"
               className="flex gap-2 text-gray-500 hover:text-gray-900"
             >
               <TogetherLogo width="20" height="20" />
               Together AI Solutions
-            </Link>
+            </a>
 
             <div className="ml-auto">
               <a
