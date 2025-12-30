@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   const { messages } = await request.json();
 
   const res = await together.chat.completions.create({
-    model: "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+    model: "moonshotai/Kimi-K2-Instruct-0905",
     messages: [
       {
         role: "system",
